@@ -1,6 +1,8 @@
 import Announcemnet from "components/Announcemnet";
 import Categories from "components/Categories";
+import Footer from "components/Footer";
 import Navbar from "components/Navbar";
+import Products from "components/Products";
 import Slid from "components/Slid";
 
 function App() {
@@ -17,6 +19,11 @@ function App() {
 
       {/* categories section */}
       <Categories />
+
+      {/* Products */}
+      <Products />
+
+      <Footer />
     </>
   );
 }
