@@ -3,29 +3,13 @@ import routerProvider, {
   HashRouterComponent,
 } from "@pankod/refine-react-router-v6";
 import { authProvider } from "authProvider";
-import axios from "axios";
-import Products from "components/Products";
+import { Layout } from "components/Layout";
 import Cart from "pages/Cart";
 import Home from "pages/Home";
 import Login from "pages/Login";
 import Product from "pages/Product";
 import Register from "pages/Register";
-const axiosInstance = axios.create();
-const TOKEN_KEY = "";
-axiosInstance.interceptors.request.use((request) => {
-  const token = localStorage.getItem(TOKEN_KEY);
-  if (token) {
-    if (request.headers) {
-      request.headers["Authorization"] = `Bearer ${token}`;
-    } else {
-      request.headers = {
-        Authorization: `Bearer ${token}`,
-      };
-    }
-  }
-
-  return request;
-});
+import { axiosInstance } from "utils/api";
 
 function App() {
   return (
@@ -36,7 +20,6 @@ function App() {
           {
             element: <Login />,
             path: "/login",
-            // layout: true,
           },
           {
             element: <Register />,
@@ -56,7 +39,9 @@ function App() {
         ],
         RouterComponent: HashRouterComponent,
       }}
-      dataProvider={("", axiosInstance)}
+      Layout={Layout}
+      ReadyPage={Home}
+      dataProvider={(process.env.REACT_APP_API, axiosInstance)}
       authProvider={authProvider(axiosInstance)}
       resources={[
         {
